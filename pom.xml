@@ -23,10 +23,6 @@
 		<commmons.pool.version>1.6</commmons.pool.version>
 		<mysql.connector.verison>5.1.6</mysql.connector.verison>
 		<jackson.version>1.9.13</jackson.version>
-		<hibernate.version>4.3.0.Final</hibernate.version>
-		<hibernate.ehcache.version>4.3.0.Final</hibernate.ehcache.version>
-		<hibernate.commons.annotaions.version>4.0.4.Final</hibernate.commons.annotaions.version>
-		<hibernate.validator.version>5.0.2.Final</hibernate.validator.version>
 		<spring.data.jpa.version>1.4.1.RELEASE</spring.data.jpa.version>
 		<commmons.collections.version>3.2.1</commmons.collections.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -185,73 +181,6 @@
 			<version>${jackson.version}</version>
 		</dependency>
 
-		<!-- jpa and hibernate -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring.data.jpa.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javassist</groupId>
-					<artifactId>javassist</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-			<version>${hibernate.ehcache.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<artifactId>ehcache-core</artifactId>
-					<groupId>net.sf.ehcache</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.common</groupId>
-			<artifactId>hibernate-commons-annotations</artifactId>
-			<version>${hibernate.commons.annotaions.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- hibernate validator 相关jar包 -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate.validator.version}</version>
-		</dependency>
 
 		<!-- json lib -->
 		<dependency>
@@ -394,7 +323,7 @@
 				<version>${tomcat.plugin.version}</version>
 				<configuration>
 					<port>8080</port>
-					<path>/rating</path>
+					<path>/dubbocenter</path>
 					<uriEncoding>UTF-8</uriEncoding>
 					<url>http://localhost:8080/manager/html</url>
 					<server>tomcat7</server>
