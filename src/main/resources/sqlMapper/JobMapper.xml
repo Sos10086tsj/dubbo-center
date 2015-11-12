@@ -43,9 +43,6 @@
 			<if test="cmdStopLoacation != null">
 				cmd_stopLoacation = #{cmdStopLoacation,jdbcType=VARCHAR},
 			</if>
-			<if test="status != null">
-				status = #{status,jdbcType=VARCHAR},
-			</if>
 			<if test="checkInterval != null">
 				check_interval = #{checkInterval,jdbcType=VARCHAR}
 			</if>
@@ -57,10 +54,29 @@
 		delete from job where job_id = #{jobId,jdbcType=VARCHAR}
 	</delete>
 	
+	<delete id="deleteInbatch" parameterType="java.lang.String">
+		delete from job where job_id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
 	<select id="getByJobId" parameterType="java.lang.String" resultMap="jobResultMap">
 		select 
 		<include refid="jobColumns" />
+		from job
 		where job_id = #{jobId,jdbcType=VARCHAR}
 	</select>
+	
+	<select id="getList" parameterType="java.lang.String" resultMap="jobResultMap">
+		select 
+		<include refid="jobColumns" />
+		from job
+		where 1 = 1
+	</select>
+	
+	<update id="updateStatus" >
+		update job set status = #{status,jdbcType=INTEGER} where job_id = #{jobId,jdbcType=VARCHAR}
+	</update>
 	
 </mapper>

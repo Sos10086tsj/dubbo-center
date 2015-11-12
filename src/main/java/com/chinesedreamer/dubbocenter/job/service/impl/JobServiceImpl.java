@@ -1,10 +1,11 @@
 package com.chinesedreamer.dubbocenter.job.service.impl;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.chinesedreamer.dubbocenter.executor.CmdExecutor;
@@ -18,8 +19,6 @@ import com.chinesedreamer.dubbocenter.util.ThreadUtils;
 @Service
 public class JobServiceImpl implements JobService{
 	
-	private Logger logger = LoggerFactory.getLogger(JobServiceImpl.class);
-	
 	@Resource
 	private JobDao jobDao;
 	
@@ -29,6 +28,11 @@ public class JobServiceImpl implements JobService{
 	@Override
 	public Job getJob(String jobId) {
 		return this.jobDao.getByJobId(jobId);
+	}
+	
+	@Override
+	public List<Job> getList(Map<String, Object> criteria) {
+		return this.jobDao.getList(criteria);
 	}
 	
 	@Override
@@ -56,36 +60,44 @@ public class JobServiceImpl implements JobService{
 	}
 
 	@Override
-	public int deleteJob(Job job) {
-		return this.jobDao.delete(job);
+	public int deleteJob(String jobId) {
+		return this.jobDao.delete(jobId);
 	}
 
 	@Override
-	public void startJob(Job job) {
-		Job exist = this.jobDao.getByJobId(job.getJobId());
-		if (null == exist) {
-			this.jobDao.save(job);
-		}else {
-			try {
-				BeanUtils.copyProperties(exist, job);
-			} catch (Exception e) {
-				this.logger.error("{}",e);
-			}
-			this.jobDao.update(exist);
+	public void startJob(String jobId) {
+		Job exist = this.jobDao.getByJobId(jobId);
+		if (null != exist) {
+			this.jobDao.updateStatus(jobId, JobStatus.RUNNING.getValue());
 		}
 		
-		JobRunner jr = new JobRunner(job, cmdExecutor, this);
-		Thread thread = new Thread(jr, job.getJobId());
+		Thread thread = ThreadUtils.getThread(jobId);
+		if (null == thread) {
+			JobRunner jr = new JobRunner(exist, cmdExecutor, this);
+			thread = new Thread(jr, jobId);
+		}
 		thread.start();
 	}
 
 	@Override
-	public void stopJob(Job job) {
-		Thread thread = ThreadUtils.getThread(job.getJobId());
-		thread.interrupt();
+	public void stopJob(String jobId) {
+		Thread thread = ThreadUtils.getThread(jobId);
+		if (null != thread) {
+			thread.interrupt();
+		}
+
+		Job exist = this.jobDao.getByJobId(jobId);
+		if (null != exist) {
+			this.jobDao.updateStatus(jobId, JobStatus.STOP.getValue());
+		}
 		
-		job.setStatus(JobStatus.STOP.getValue());
-		this.jobDao.update(job);
 	}
+
+	@Override
+	public void deleteJobInBatch(String[] jobIds) {
+		this.jobDao.deleteInbatch(Arrays.asList(jobIds));
+	}
+
+	
 
 }

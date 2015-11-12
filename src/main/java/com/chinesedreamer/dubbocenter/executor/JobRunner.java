@@ -35,8 +35,9 @@ public class JobRunner implements Runnable{
 				Thread.sleep(this.job.getCheckInterval());
 			} catch (InterruptedException e) {
 				this.logger.error("{}",e);
+				Thread.currentThread().interrupt();
 			}
-		} while (this.jobService.getJobStatus(this.job.getJobId()).equals(JobStatus.RUNNING));
+		} while (this.jobService.getJobStatus(this.job.getJobId()).equals(JobStatus.RUNNING) && !Thread.interrupted());
 	}
 
 }

@@ -1,12 +1,14 @@
 package com.chinesedreamer.dubbocenter.job.constant;
 
 public enum JobStatus {
-	UNKNOWN(-1),RUNNING(0),STOP(1);
+	UNKNOWN(-1,"未知"),RUNNING(0,"运行中"),STOP(1,"已停止");
 	
 	private final Integer value;
+	private final String label;
 	
-	private JobStatus(Integer value){
+	private JobStatus(Integer value,String label){
 		this.value = value;
+		this.label = label;
 	}
 	
 	public static JobStatus getByValue(Integer value) {
@@ -20,6 +22,10 @@ public enum JobStatus {
 
 	public Integer getValue() {
 		return value;
+	}
+
+	public String getLabel() {
+		return label;
 	}
 	
 	

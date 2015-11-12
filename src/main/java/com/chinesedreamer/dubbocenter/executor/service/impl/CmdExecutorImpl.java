@@ -11,12 +11,14 @@ import com.chinesedreamer.dubbocenter.job.model.Job;
 
 @Service("shCmdExecutor")
 public class CmdExecutorImpl implements CmdExecutor{
+	
+	private final String cmdSymbol = "sh ";
 
 	@Override
 	public String execute(Job job) throws IOException {
 		String result = "";
 		
-		String cmd = job.getCmdStartLocation();
+		String cmd = cmdSymbol + job.getCmdStartLocation();
 		Process process = Runtime.getRuntime().exec(cmd);
 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		
