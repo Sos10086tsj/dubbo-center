@@ -2,17 +2,12 @@ package com.chinesedreamer.dubbocenter.executor;
 
 import com.chinesedreamer.dubbocenter.job.model.Job;
 
-public class CmdExecutor implements Runnable{
+public interface CmdExecutor {
 	
-	private Job job;
-	
-	public CmdExecutor(Job job){
-		this.job = job;
-	}
-
-	@Override
-	public void run() {
-		
-	}
-
+	/**
+	 * 执行脚本
+	 * @param job
+	 * @return
+	 */
+	public String execute(Job job)  throws Exception ;
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinesedreamer.dubbocenter.job.dao.JobDao">
+	<resultMap type="com.chinesedreamer.dubbocenter.job.model.Job" id="jobResultMap">
+		<id property="jobId" column="job_id"/>
+		<result property="jobDescription" column="job_description"/>
+		<result property="cmdStartLocation" column="cmd_startLocation"/>
+		<result property="cmdStopLoacation" column="cmd_stopLoacation"/>
+		<result property="status" column="status"/>
+		<result property="checkInterval" column="check_interval"/>
+	</resultMap>
+	
+	<sql id="jobColumns">
+		job_id, job_description, cmd_startLocation, cmd_stopLoacation, status, check_interval
+	</sql>
+	
+	<insert id="save" parameterType="com.chinesedreamer.dubbocenter.job.model.Job">
+		insert into job 
+		(
+			job_id, job_description, cmd_startLocation, cmd_stopLoacation, status, check_interval
+		)
+		values
+		(
+			#{jobId,jdbcType=VARCHAR},
+			#{jobDescription,jdbcType=VARCHAR},
+			#{cmdStartLocation,jdbcType=VARCHAR},
+			#{cmdStopLoacation,jdbcType=VARCHAR},
+			#{status,jdbcType=INTEGER},
+			#{checkInterval,jdbcType=INTEGER}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.chinesedreamer.dubbocenter.job.model.Job">
+		update job 
+		<set>
+			<if test="jobDescription != null">
+				job_description = #{jobDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="cmdStartLocation != null">
+				cmd_startLocation = #{cmdStartLocation,jdbcType=VARCHAR},
+			</if>
+			<if test="cmdStopLoacation != null">
+				cmd_stopLoacation = #{cmdStopLoacation,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="checkInterval != null">
+				check_interval = #{checkInterval,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where job_id = #{jobId,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		delete from job where job_id = #{jobId,jdbcType=VARCHAR}
+	</delete>
+	
+	<select id="getByJobId" parameterType="java.lang.String" resultMap="jobResultMap">
+		select 
+		<include refid="jobColumns" />
+		where job_id = #{jobId,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

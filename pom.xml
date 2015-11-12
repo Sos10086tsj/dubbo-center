@@ -48,6 +48,8 @@
 		<servlet-api.vrsion>2.5</servlet-api.vrsion>
 		<ehcache-core.version>2.6.10</ehcache-core.version>
 		<ehcache.version>2.9.0</ehcache.version>
+		<mybatis.version>3.2.8</mybatis.version>
+		<mybatis.spring.version>1.1.1</mybatis.spring.version>
 	</properties>
 
 	<dependencies>
@@ -366,6 +368,21 @@
 			<artifactId>ehcache</artifactId>
 			<version>${ehcache.version}</version>
 		</dependency>
+		
+		<!-- mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+
+			<!-- mybatis spring -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis.spring.version}</version>
+			</dependency>
+		
 	</dependencies>
 
 	<build>

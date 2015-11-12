@@ -43,6 +43,12 @@ public class Job {
 	public void setCheckInterval(Long checkInterval) {
 		this.checkInterval = checkInterval;
 	}
+	@Override
+	public String toString() {
+		return "Job [jobId=" + jobId + ", jobDescription=" + jobDescription + ", cmdStartLocation=" + cmdStartLocation
+				+ ", cmdStopLoacation=" + cmdStopLoacation + ", status=" + status + ", checkInterval=" + checkInterval
+				+ "]";
+	}
 	
 	
 }
