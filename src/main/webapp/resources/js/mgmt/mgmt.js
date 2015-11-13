@@ -177,7 +177,7 @@ dubbocenter.mgmt = {
 		                	dubbocenter.warningResult('操作提示','请逐个启动');
 		                }else{
 		                	
-		                	if(records[0].data.status == 0){
+		                	if(records[0].data.status == '运行中 ' || records[0].data.status == 0){
 		                		dubbocenter.warningResult('操作提示','任务正在运行中，请勿重复启动');
 		                		return;
 		                	}
@@ -225,7 +225,7 @@ dubbocenter.mgmt = {
 		                	dubbocenter.warningResult('操作提示','请逐个启动');
 		                }else{
 		                	
-		                	if(records[0].data.status == 1){
+		                	if(records[0].data.status == '已停止' || records[0].data.status == 1){
 		                		dubbocenter.warningResult('操作提示','任务已经停止，请勿重复停止');
 		                		return;
 		                	}
