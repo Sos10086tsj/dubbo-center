@@ -345,7 +345,7 @@
 				<version>${tomcat.plugin.version}</version>
 				<configuration>
 					<port>8080</port>
-					<path>/dubbocenter</path>
+					<path>/dubboCenter</path>
 					<uriEncoding>UTF-8</uriEncoding>
 					<url>http://localhost:8080/manager/html</url>
 					<server>tomcat7</server>
