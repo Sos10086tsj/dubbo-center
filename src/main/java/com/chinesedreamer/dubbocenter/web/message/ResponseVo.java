@@ -1,5 +1,7 @@
 package com.chinesedreamer.dubbocenter.web.message;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ResponseVo {
 	private Boolean success = Boolean.TRUE;
 	private String errorCode;
@@ -38,6 +40,21 @@ public class ResponseVo {
 	public static ResponseVo getSuccessResponse(Object data) {
 		ResponseVo vo = new ResponseVo();
 		vo.setData(data);
+		return vo;
+	}
+	
+	public static ResponseVo getFailureResponse(String errorCode, String errorMsg, Object data) {
+		ResponseVo vo = new ResponseVo();
+		vo.setSuccess(Boolean.FALSE);
+		if (StringUtils.isNotEmpty(errorCode)) {
+			vo.setErrorCode(errorCode);
+		}
+		if (StringUtils.isNotEmpty(errorMsg)) {
+			vo.setErrorMsg(errorMsg);
+		}
+		if (null != data) {
+			vo.setData(data);
+		}
 		return vo;
 	}
 }

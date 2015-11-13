@@ -10,6 +10,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/mvc 
 http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
+	<bean id="exceptionHandler" class="com.chinesedreamer.dubbocenter.web.handler.ExceptionHandler"></bean>  
+
 	<!-- Spring 注释 -->
 	<context:component-scan
 		base-package="com.chinesedreamer.dubbocenter.**.controller"

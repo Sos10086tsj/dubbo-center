@@ -13,3 +13,10 @@ CREATE TABLE `dubbocenter`.`job` (
 
 ALTER TABLE `dubbocenter`.`job` 
 ADD COLUMN `result` VARCHAR(45) NULL COMMENT '' AFTER `check_interval`;
+
+
+ALTER TABLE `dubbocenter`.`job` 
+DROP COLUMN `result`,
+DROP COLUMN `check_interval`,
+CHANGE COLUMN `cmd_startLocation` `cmd_startLocation` VARCHAR(256) NULL DEFAULT NULL COMMENT '' ,
+CHANGE COLUMN `cmd_stopLoacation` `cmd_stopLoacation` VARCHAR(256) NULL DEFAULT NULL COMMENT '' ;
