@@ -8,17 +8,16 @@
 		<result property="cmdStartLocation" column="cmd_startLocation"/>
 		<result property="cmdStopLoacation" column="cmd_stopLoacation"/>
 		<result property="status" column="status"/>
-		<result property="checkInterval" column="check_interval"/>
 	</resultMap>
 	
 	<sql id="jobColumns">
-		job_id, job_description, cmd_startLocation, cmd_stopLoacation, status, check_interval
+		job_id, job_description, cmd_startLocation, cmd_stopLoacation, status
 	</sql>
 	
 	<insert id="save" parameterType="com.chinesedreamer.dubbocenter.job.model.Job">
 		insert into job 
 		(
-			job_id, job_description, cmd_startLocation, cmd_stopLoacation, status, check_interval
+			job_id, job_description, cmd_startLocation, cmd_stopLoacation, status
 		)
 		values
 		(
@@ -26,8 +25,7 @@
 			#{jobDescription,jdbcType=VARCHAR},
 			#{cmdStartLocation,jdbcType=VARCHAR},
 			#{cmdStopLoacation,jdbcType=VARCHAR},
-			#{status,jdbcType=INTEGER},
-			#{checkInterval,jdbcType=INTEGER}
+			#{status,jdbcType=INTEGER}
 		)
 	</insert>
 	
@@ -42,9 +40,6 @@
 			</if>
 			<if test="cmdStopLoacation != null">
 				cmd_stopLoacation = #{cmdStopLoacation,jdbcType=VARCHAR},
-			</if>
-			<if test="checkInterval != null">
-				check_interval = #{checkInterval,jdbcType=VARCHAR}
 			</if>
 		</set>
 		where job_id = #{jobId,jdbcType=VARCHAR}

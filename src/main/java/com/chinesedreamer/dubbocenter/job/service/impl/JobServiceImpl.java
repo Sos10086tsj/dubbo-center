@@ -9,12 +9,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.chinesedreamer.dubbocenter.executor.CmdExecutor;
-import com.chinesedreamer.dubbocenter.executor.JobRunner;
 import com.chinesedreamer.dubbocenter.job.constant.JobStatus;
 import com.chinesedreamer.dubbocenter.job.dao.JobDao;
 import com.chinesedreamer.dubbocenter.job.model.Job;
 import com.chinesedreamer.dubbocenter.job.service.JobService;
-import com.chinesedreamer.dubbocenter.util.ThreadUtils;
 
 @Service
 public class JobServiceImpl implements JobService{
@@ -70,27 +68,16 @@ public class JobServiceImpl implements JobService{
 		if (null != exist) {
 			this.jobDao.updateStatus(jobId, JobStatus.RUNNING.getValue());
 		}
-		
-		Thread thread = ThreadUtils.getThread(jobId);
-		if (null == thread) {
-			JobRunner jr = new JobRunner(exist, cmdExecutor, this);
-			thread = new Thread(jr, jobId);
-		}
-		thread.start();
+		this.cmdExecutor.execute(exist, true);
 	}
 
 	@Override
 	public void stopJob(String jobId) {
-		Thread thread = ThreadUtils.getThread(jobId);
-		if (null != thread) {
-			thread.interrupt();
-		}
-
 		Job exist = this.jobDao.getByJobId(jobId);
 		if (null != exist) {
 			this.jobDao.updateStatus(jobId, JobStatus.STOP.getValue());
 		}
-		
+		this.cmdExecutor.execute(exist, false);
 	}
 
 	@Override

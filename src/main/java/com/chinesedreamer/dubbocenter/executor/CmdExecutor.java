@@ -7,7 +7,6 @@ public interface CmdExecutor {
 	/**
 	 * 执行脚本
 	 * @param job
-	 * @return
 	 */
-	public String execute(Job job)  throws Exception ;
+	public void execute(Job job, boolean start);
 }

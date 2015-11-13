@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.springframework.test.annotation.Rollback;
 
 import com.chinesedreamer.dubbocenter.base.BaseTest;
 import com.chinesedreamer.dubbocenter.job.constant.JobStatus;
@@ -28,7 +27,6 @@ public class JobServiceImplTest extends BaseTest{
 //	}
 
 	@Test
-	@Rollback(value = false)
 	public void testAddJob() {
 		Job job = this.jobService.addJob(this.initJob());
 		assertNotNull(job);

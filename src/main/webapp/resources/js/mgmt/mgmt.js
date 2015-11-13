@@ -22,10 +22,8 @@ dubbocenter.mgmt = {
 	        			params : {
 	        				jobId : record.get('jobId'),
 	        				jobDescription:record.get('jobDescription'),
-	        				//status:record.get('status'),
 	        				cmdStartLocation:record.get('cmdStartLocation'),
-	        				cmdStopLoacation:record.get('cmdStopLoacation'),
-	        				checkInterval:record.get('checkInterval')
+	        				cmdStopLoacation:record.get('cmdStopLoacation')
 	        			},
 	        			success : function(response){
 	        				progress.hide();
@@ -89,20 +87,6 @@ dubbocenter.mgmt = {
 			    	editor: {
 			    		allowBlank: false
 			    	}
-			    },
-			    {
-			    	header: '服务检查周期(ms)',
-			    	dataIndex: 'checkInterval',
-			    	flex: 1,
-			    	editor: {
-			    		allowBlank: false,
-			    		xtype: 'combobox',
-			    		store : dubbocenter.mgmt.store.initIntervalStore(),
-			    		queryMode: 'local',
-			    	    displayField: 'label',
-			    	    valueField: 'value',
-			    	    editable:false
-			    	}
 			    }
 			],
 			renderTo : Ext.getBody(),
@@ -127,8 +111,7 @@ dubbocenter.mgmt = {
 		                	'jobDescription':'',
 		                	'status':'已停止',
 		                	'cmdStartLocation':'',
-		                	'cmdStopLoacation':'',
-		                	'checkInterval':''
+		                	'cmdStopLoacation':''
 		                });
 
 		                store.insert(0, r);
@@ -193,6 +176,12 @@ dubbocenter.mgmt = {
 		                }else if(records.length > 1){
 		                	dubbocenter.warningResult('操作提示','请逐个启动');
 		                }else{
+		                	
+		                	if(records[0].data.status == 0){
+		                		dubbocenter.warningResult('操作提示','任务正在运行中，请勿重复启动');
+		                		return;
+		                	}
+		                	
 		                	var jobId = records[0].data.jobId;
 		                	var progress = dubbocenter.progressBar('正在修改，请稍后...');
 		        			progress.show();
@@ -235,6 +224,12 @@ dubbocenter.mgmt = {
 		                }else if(records.length > 1){
 		                	dubbocenter.warningResult('操作提示','请逐个启动');
 		                }else{
+		                	
+		                	if(records[0].data.status == 1){
+		                		dubbocenter.warningResult('操作提示','任务已经停止，请勿重复停止');
+		                		return;
+		                	}
+		                	
 		                	var jobId = records[0].data.jobId;
 		                	var progress = dubbocenter.progressBar('正在修改，请稍后...');
 		        			progress.show();

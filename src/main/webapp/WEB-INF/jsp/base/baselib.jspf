@@ -1,7 +1,7 @@
 <%@include file="/WEB-INF/jsp/base/taglibs.jsp" %>
 
 <script>
-var ctx = '/dubbocenter';
+var ctx = '/dubboCenter';
 </script>
 
 <link rel="icon" type="image/gif" href="${ctx }/resources/images/logo.ico">

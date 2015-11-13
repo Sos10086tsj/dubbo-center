@@ -7,8 +7,7 @@ dubbocenter.mgmt.store = {
 		            'jobDescription',
 		            'status',
 		            'cmdStartLocation',
-		            'cmdStopLoacation',
-		            'checkInterval'
+		            'cmdStopLoacation'
 		        ]
 			});
 			

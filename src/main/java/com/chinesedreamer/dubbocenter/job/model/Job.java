@@ -6,7 +6,6 @@ public class Job {
 	private String cmdStartLocation;
 	private String cmdStopLoacation;
 	private Integer status;//0:启用	1:禁用
-	private Long checkInterval;
 	public String getJobId() {
 		return jobId;
 	}
@@ -36,18 +35,6 @@ public class Job {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-	public Long getCheckInterval() {
-		return checkInterval;
-	}
-	public void setCheckInterval(Long checkInterval) {
-		this.checkInterval = checkInterval;
-	}
-	@Override
-	public String toString() {
-		return "Job [jobId=" + jobId + ", jobDescription=" + jobDescription + ", cmdStartLocation=" + cmdStartLocation
-				+ ", cmdStopLoacation=" + cmdStopLoacation + ", status=" + status + ", checkInterval=" + checkInterval
-				+ "]";
 	}
 	
 	
