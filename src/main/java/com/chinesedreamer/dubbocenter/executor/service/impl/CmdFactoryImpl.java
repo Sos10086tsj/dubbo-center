@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.chinesedreamer.dubbocenter.executor.CmdExecutor;
 import com.chinesedreamer.dubbocenter.executor.CmdFactory;
+import com.chinesedreamer.dubbocenter.util.SystemUtils;
 
 @Service
 public class CmdFactoryImpl implements CmdFactory{
@@ -16,8 +17,7 @@ public class CmdFactoryImpl implements CmdFactory{
 
 	@Override
 	public CmdExecutor getInstance() {
-		String osName = System.getProperties().getProperty("os.name");
-		if (osName.toLowerCase().startsWith("windows")) {
+		if (SystemUtils.isWindows()) {
 			return this.batCmdExecutor;
 		}
 		return this.shCmdExecutor;
