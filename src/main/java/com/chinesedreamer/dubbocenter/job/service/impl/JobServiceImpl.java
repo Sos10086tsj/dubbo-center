@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.chinesedreamer.dubbocenter.executor.CmdExecutor;
+import com.chinesedreamer.dubbocenter.executor.CmdFactory;
 import com.chinesedreamer.dubbocenter.job.constant.JobStatus;
 import com.chinesedreamer.dubbocenter.job.dao.JobDao;
 import com.chinesedreamer.dubbocenter.job.model.Job;
@@ -20,8 +20,8 @@ public class JobServiceImpl implements JobService{
 	@Resource
 	private JobDao jobDao;
 	
-	@Resource(name = "shCmdExecutor")
-	private CmdExecutor cmdExecutor;
+	@Resource
+	private CmdFactory cmdFactory;
 	
 	@Override
 	public Job getJob(String jobId) {
@@ -68,7 +68,7 @@ public class JobServiceImpl implements JobService{
 		if (null != exist) {
 			this.jobDao.updateStatus(jobId, JobStatus.RUNNING.getValue());
 		}
-		this.cmdExecutor.execute(exist, true);
+		this.cmdFactory.getInstance().execute(exist, true);
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class JobServiceImpl implements JobService{
 		if (null != exist) {
 			this.jobDao.updateStatus(jobId, JobStatus.STOP.getValue());
 		}
-		this.cmdExecutor.execute(exist, false);
+		this.cmdFactory.getInstance().execute(exist, false);
 	}
 
 	@Override

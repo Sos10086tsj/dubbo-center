@@ -1,5 +1,7 @@
 package com.chinesedreamer.dubbocenter.executor.service.impl;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,21 +17,11 @@ public class CmdExecutorShImpl implements CmdExecutor{
 	public void execute(Job job, boolean start){
 		
 		String script = start ? job.getCmdStartLocation() : job.getCmdStopLoacation();
-		String sudo = "chmod 777 " + script;
-		String cmd = "/bin/sh " + script;
-		
-		
-		Process process = null;
+		logger.info("execute command:{}",script);
 		try {
-			logger.info("execute command:{}",sudo);
-			process = Runtime.getRuntime().exec(sudo);
-			process.waitFor();
-			logger.info("execute command:{}",cmd);
-			Runtime.getRuntime().exec(cmd);
-		} catch (Exception e) {
+			Runtime.getRuntime().exec(script);
+		} catch (IOException e) {
 			logger.error("{}",e);
-		}finally {
-			process.destroy();
 		}
 	}
 
