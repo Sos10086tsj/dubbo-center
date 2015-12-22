@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.chinesedreamer.dubbocenter.executor.CmdExecutor;
-import com.chinesedreamer.dubbocenter.executor.CmdFactory;
+import com.chinesedreamer.dubbocenter.executor.service.CmdExecutor;
+import com.chinesedreamer.dubbocenter.executor.service.CmdFactory;
 import com.chinesedreamer.dubbocenter.util.SystemUtils;
 
 @Service

@@ -187,7 +187,8 @@ dubbocenter.mgmt = {
 		        			progress.show();
 		                	Ext.Ajax.request({
 			        			url : ctx + '/mgmt/start',
-			        			method : 'post', 
+			        			method : 'post',
+			        			timeout : 60000,
 			        			params : {
 			        				jobId : jobId
 			        			},

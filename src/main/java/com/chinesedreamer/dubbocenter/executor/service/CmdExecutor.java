@@ -1,4 +1,4 @@
-package com.chinesedreamer.dubbocenter.executor;
+package com.chinesedreamer.dubbocenter.executor.service;
 
 import com.chinesedreamer.dubbocenter.job.model.Job;
 

@@ -1,4 +1,4 @@
-package com.chinesedreamer.dubbocenter.executor;
+package com.chinesedreamer.dubbocenter.executor.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,8 +37,11 @@ public class WindowsStopProcess {
 				in = new Scanner(process.getInputStream(),"GBK");
 				while (in.hasNextLine()) {
 					String commandPath = in.nextLine();
+					logger.info("process path: {}" , commandPath);
 					if (commandPath.trim().endsWith(path)) {
+						logger.info("kill pid#{}",pid.getPid());
 						Runtime.getRuntime().exec(TASK_KILL + pid.getPid());
+						break;
 					}
 				}
 			}
