@@ -18,7 +18,7 @@ public class WindowsStopProcess {
 	private static String TASK_KILL = "TSKILL ";
 	private static String PID_PATH = "wmic process where processid=<pid> get commandline";
 	
-	public static void stopProcess(String path) {
+	public static void stopProcess(String mainClassName, String startBatPath) {
 		Process process = null;
 		List<String> pids = new ArrayList<String>();
 		try {
@@ -26,7 +26,7 @@ public class WindowsStopProcess {
 			Scanner in = new Scanner(process.getInputStream(),"GBK");
 			while (in.hasNextLine()) {
 				String line = in.nextLine();
-				if (line.startsWith("java")) {
+				if (line.startsWith("java") || line.startsWith("cmd")) {
 					pids.add(line);
 				}
 			}
@@ -35,12 +35,21 @@ public class WindowsStopProcess {
 			for (Pid pid : getPidObjs) {
 				process = Runtime.getRuntime().exec(PID_PATH.replace("<pid>", pid.getPid()));
 				in = new Scanner(process.getInputStream(),"GBK");
+				int stopProcess = 0;
 				while (in.hasNextLine()) {
 					String commandPath = in.nextLine();
 					logger.info("process path: {}" , commandPath);
-					if (commandPath.trim().endsWith(path)) {
-						logger.info("kill pid#{}",pid.getPid());
+					if (commandPath.trim().endsWith(mainClassName)) {
+						logger.info("kill java process pid#{}",pid.getPid());
 						Runtime.getRuntime().exec(TASK_KILL + pid.getPid());
+						stopProcess ++;
+					}
+					if (commandPath.contains(startBatPath)) {
+						logger.info("kill cmd process pid#{}",pid.getPid());
+						Runtime.getRuntime().exec(TASK_KILL + pid.getPid());
+						stopProcess ++;
+					}
+					if (stopProcess >= 2) {
 						break;
 					}
 				}

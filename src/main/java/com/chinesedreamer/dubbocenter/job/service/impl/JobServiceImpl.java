@@ -80,7 +80,7 @@ public class JobServiceImpl implements JobService{
 			this.jobDao.updateStatus(jobId, JobStatus.STOP.getValue());
 		}
 		if (SystemUtils.isWindows()) {
-			WindowsStopProcess.stopProcess(exist.getCmdStopLoacation());
+			WindowsStopProcess.stopProcess(exist.getCmdStopLoacation(), exist.getCmdStartLocation());
 		}else {
 			this.cmdFactory.getInstance().execute(exist, false);
 		}
